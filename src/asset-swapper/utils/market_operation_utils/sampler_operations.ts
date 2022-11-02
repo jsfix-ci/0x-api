@@ -32,6 +32,7 @@ import {
     COMPOUND_API_URL_BY_CHAIN_ID,
     DODOV1_CONFIG_BY_CHAIN_ID,
     DODOV2_FACTORIES_BY_CHAIN_ID,
+    DYSTOPIA_ROUTER_BY_CHAIN_ID,
     GMX_READER_BY_CHAIN_ID,
     GMX_ROUTER_BY_CHAIN_ID,
     GMX_VAULT_BY_CHAIN_ID,
@@ -1237,13 +1238,14 @@ export class SamplerOperations {
     }
 
     public getVelodromeSellQuotes(
+        source: ERC20BridgeSource,
         router: string,
         takerToken: string,
         makerToken: string,
         takerFillAmounts: BigNumber[],
     ): SourceQuoteOperation<VelodromeFillData> {
         return new SamplerContractOperation({
-            source: ERC20BridgeSource.Velodrome,
+            source, 
             contract: this._samplerContract,
             function: this._samplerContract.sampleSellsFromVelodrome,
             params: [router, takerToken, makerToken, takerFillAmounts],
@@ -1260,13 +1262,14 @@ export class SamplerOperations {
     }
 
     public getVelodromeBuyQuotes(
+        source: ERC20BridgeSource,
         router: string,
         takerToken: string,
         makerToken: string,
         makerFillAmounts: BigNumber[],
     ): SourceQuoteOperation<VelodromeFillData> {
         return new SamplerContractOperation({
-            source: ERC20BridgeSource.Velodrome,
+            source: source,
             contract: this._samplerContract,
             function: this._samplerContract.sampleBuysFromVelodrome,
             params: [router, takerToken, makerToken, makerFillAmounts],
@@ -1762,9 +1765,18 @@ export class SamplerOperations {
                             takerFillAmounts,
                         );
                     }
+                    case ERC20BridgeSource.Dystopia:
                     case ERC20BridgeSource.Velodrome: {
+                        let address: string;
+
+                        if (source === ERC20BridgeSource.Dystopia) {
+                            address = DYSTOPIA_ROUTER_BY_CHAIN_ID[this.chainId]
+                        } else {
+                            address = VELODROME_ROUTER_BY_CHAIN_ID[this.chainId]
+                        }
                         return this.getVelodromeSellQuotes(
-                            VELODROME_ROUTER_BY_CHAIN_ID[this.chainId],
+                            source,
+                            address,
                             takerToken,
                             makerToken,
                             takerFillAmounts,
@@ -2101,9 +2113,18 @@ export class SamplerOperations {
                             makerFillAmounts,
                         );
                     }
+                    case ERC20BridgeSource.Dystopia:
                     case ERC20BridgeSource.Velodrome: {
+                        let address: string;
+
+                        if (source === ERC20BridgeSource.Dystopia) {
+                            address = DYSTOPIA_ROUTER_BY_CHAIN_ID[this.chainId]
+                        } else {
+                            address = VELODROME_ROUTER_BY_CHAIN_ID[this.chainId]
+                        }
                         return this.getVelodromeBuyQuotes(
-                            VELODROME_ROUTER_BY_CHAIN_ID[this.chainId],
+                            source,
+                            address,
                             takerToken,
                             makerToken,
                             makerFillAmounts,
