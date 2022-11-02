@@ -1245,7 +1245,7 @@ export class SamplerOperations {
         takerFillAmounts: BigNumber[],
     ): SourceQuoteOperation<VelodromeFillData> {
         return new SamplerContractOperation({
-            source, 
+            source,
             contract: this._samplerContract,
             function: this._samplerContract.sampleSellsFromVelodrome,
             params: [router, takerToken, makerToken, takerFillAmounts],
@@ -1770,17 +1770,11 @@ export class SamplerOperations {
                         let address: string;
 
                         if (source === ERC20BridgeSource.Dystopia) {
-                            address = DYSTOPIA_ROUTER_BY_CHAIN_ID[this.chainId]
+                            address = DYSTOPIA_ROUTER_BY_CHAIN_ID[this.chainId];
                         } else {
-                            address = VELODROME_ROUTER_BY_CHAIN_ID[this.chainId]
+                            address = VELODROME_ROUTER_BY_CHAIN_ID[this.chainId];
                         }
-                        return this.getVelodromeSellQuotes(
-                            source,
-                            address,
-                            takerToken,
-                            makerToken,
-                            takerFillAmounts,
-                        );
+                        return this.getVelodromeSellQuotes(source, address, takerToken, makerToken, takerFillAmounts);
                     }
                     case ERC20BridgeSource.Synthetix: {
                         const readProxy = SYNTHETIX_READ_PROXY_BY_CHAIN_ID[this.chainId];
@@ -2118,17 +2112,11 @@ export class SamplerOperations {
                         let address: string;
 
                         if (source === ERC20BridgeSource.Dystopia) {
-                            address = DYSTOPIA_ROUTER_BY_CHAIN_ID[this.chainId]
+                            address = DYSTOPIA_ROUTER_BY_CHAIN_ID[this.chainId];
                         } else {
-                            address = VELODROME_ROUTER_BY_CHAIN_ID[this.chainId]
+                            address = VELODROME_ROUTER_BY_CHAIN_ID[this.chainId];
                         }
-                        return this.getVelodromeBuyQuotes(
-                            source,
-                            address,
-                            takerToken,
-                            makerToken,
-                            makerFillAmounts,
-                        );
+                        return this.getVelodromeBuyQuotes(source, address, takerToken, makerToken, makerFillAmounts);
                     }
                     case ERC20BridgeSource.Synthetix: {
                         const readProxy = SYNTHETIX_READ_PROXY_BY_CHAIN_ID[this.chainId];
