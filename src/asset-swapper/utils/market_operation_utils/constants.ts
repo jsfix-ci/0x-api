@@ -163,7 +163,6 @@ export const SELL_SOURCE_FILTER_BY_CHAIN_ID = valueByChainId<SourceFilters>(
             ERC20BridgeSource.MeshSwap,
             ERC20BridgeSource.WOOFi,
             ERC20BridgeSource.Dystopia,
-            ERC20BridgeSource.Dystopia,
         ]),
         [ChainId.Avalanche]: new SourceFilters([
             ERC20BridgeSource.MultiHop,
