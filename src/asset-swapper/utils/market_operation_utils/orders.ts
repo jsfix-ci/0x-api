@@ -198,9 +198,9 @@ export function getErc20BridgeSourceToBridgeSource(source: ERC20BridgeSource): s
         case ERC20BridgeSource.BancorV3:
             return encodeBridgeSourceId(BridgeProtocol.BancorV3, 'BancorV3');
         case ERC20BridgeSource.Velodrome:
-            return encodeBridgeSourceId(BridgeProtocol.Velodrome, 'Velodrome');
+            return encodeBridgeSourceId(BridgeProtocol.Solidly, 'Velodrome');
         case ERC20BridgeSource.Dystopia:
-            return encodeBridgeSourceId(BridgeProtocol.Velodrome, 'Dystopia');
+            return encodeBridgeSourceId(BridgeProtocol.Solidly, 'Dystopia');
         case ERC20BridgeSource.Synthetix:
             return encodeBridgeSourceId(BridgeProtocol.Synthetix, 'Synthetix');
         case ERC20BridgeSource.WOOFi:
